@@ -39,9 +39,16 @@ DJANGO_APPS = [
     'django.contrib.staticfiles',
 ]
 
-THIRD_PARTY_APPS = []
+THIRD_PARTY_APPS = [
+    'django_countries'
+]
 
-INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS
+MY_APPS = [
+    "articles",
+    "core",
+]
+
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + MY_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
