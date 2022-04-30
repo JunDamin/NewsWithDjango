@@ -5,7 +5,7 @@ from core import models as core_models
 
 # ,국가,날짜,구분,분야,제목,본문1,본문2,본문3,제목_현지공용어,본문1_현지공용어,본문2_현지공용어,본문3_현지공용어,출처,링크
 
-class ArticleModel(core_models.TimeStampedModel):
+class Article(core_models.TimeStampedModel):
     """
     content_kr: merge 본문1,본문2,본문3
     content_local: moerge 
