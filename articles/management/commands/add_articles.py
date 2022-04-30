@@ -21,6 +21,20 @@ def set_article(row):
     article_dict = get_data(row)
     Article.objects.create(**article_dict)   
 
+def set_articles(fpath):
+    try:
+        with open(fpath, mode="r") as file:
+            reader = csv.DictReader(file)
+            for row in reader:
+                set_article(row)
+
+    except UnicodeDecodeError:
+        with open(fpath, mode="r", encoding="cp949") as file:
+            reader = csv.DictReader(file)
+            for row in reader:
+                set_article(row)
+
+
 class Command(BaseCommand):
     help = "use can add articles from csv"
 
@@ -30,15 +44,4 @@ class Command(BaseCommand):
 
     def handle(self, *arg, **kwarg):
         fpath = kwarg.get("fpath")
-        
-        try:
-            with open(fpath, mode="r") as file:
-                reader = csv.DictReader(file)
-                for row in reader:
-                    set_article(row)
-
-        except UnicodeDecodeError:
-            with open(fpath, mode="r", encoding="cp949") as file:
-                reader = csv.DictReader(file)
-                for row in reader:
-                    set_article(row)
+        set_articles(fpath)
