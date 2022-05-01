@@ -14,11 +14,14 @@ Search
         <h2 class="text-xl"> Search!</h2>
 
         <form method="get" action="{% url "articles:search" %}">
-            {{form.as_p}}
+            {% for field in form %}
+                {{field}}
+            {% endfor %}
+            <input>
             <button class="btn bg-teal-500 mt-5 text-white">Search</button>
         </form>
     </div>
-    <div class="container flex flex-col items-center justify-center mx-auto">
+    <div class="container lg:w-5/12 md:w-1/2 xl:w-1/2 mx-auto flex flex-col items-center justify-center mx-auto">
 
         <h2 class="text-xl mx-auto mb-5">Search Results</h2>
         {% for article in articles %}
