@@ -33,6 +33,8 @@ class SearchView(View):
             country = form.cleaned_data.get("country")
             subject_type = form.cleaned_data.get("subject_type")
             sector = form.cleaned_data.get("sector")
+            start_date = form.cleaned_data.get("start_date")
+            end_date = form.cleaned_data.get("end_date")
 
             filter_args = {}
 
@@ -47,6 +49,12 @@ class SearchView(View):
 
             if sector:
                 filter_args["sector"] = sector
+
+            if start_date:
+                filter_args["date__gte"] = start_date
+
+            if end_date:
+                filter_args["date__lte"] = end_date
 
             qs = models.Article.objects.filter(**filter_args).order_by("-created")
 
