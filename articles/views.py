@@ -31,10 +31,11 @@ class SearchView(View):
 
             title_kr = form.cleaned_data.get("title_kr")
             country = form.cleaned_data.get("country")
-            subject_type = form.cleaned_data.get("subject_type")
+            category = form.cleaned_data.get("category")
             sector = form.cleaned_data.get("sector")
             start_date = form.cleaned_data.get("start_date")
             end_date = form.cleaned_data.get("end_date")
+            
 
             filter_args = {}
 
@@ -44,8 +45,8 @@ class SearchView(View):
             if country:
                 filter_args["country"] = country
 
-            if subject_type:
-                filter_args["category"] = subject_type
+            if category:
+                filter_args["category"] = category
 
             if sector:
                 filter_args["sector"] = sector
@@ -63,8 +64,6 @@ class SearchView(View):
             page = request.GET.get("page", 1)
 
             articles = paginator.get_page(page)
-
-            print(articles)
 
             return render(
                 request, "articles/search.html", {"form": form, "articles": articles},

@@ -17,7 +17,6 @@ Search
             {% for field in form %}
                 {{field}}
             {% endfor %}
-            <input>
             <button class="btn bg-teal-500 mt-5 text-white">Search</button>
         </form>
     </div>
@@ -29,5 +28,21 @@ Search
         {% endfor %}
         {% if not articles %}There is nothing matched{% endif %}
     </div>
+    {% if articles %}
+    <div class="flex items-center justify-center mx-auto container">
+        {% if articles.has_previous %}
+            <a href="?{{form.title_kr.value}}&country={{form.country.value}}&category={{form.category.value}}&sector={{form.sector.value}}&start_date={{form.start_date.value}}&end_date={{form.end_date.value}}&page={{articles.previous_page_number}}" class="text-teal-500">
+                <i class="fas fa-arrow-left fa-lg"></i>
+            </a>
+        {% endif %}
 
+        <span class="mx-3 font-medium text-lg">{{articles.number}} of {{articles.paginator.num_pages}}</span>
+
+        {% if articles.has_next %}
+            <a href="?{{form.title_kr.value}}&country={{form.country.value}}&category={{form.category.value}}&sector={{form.sector.value}}&start_date={{form.start_date.value}}&end_date={{form.end_date.value}}&page={{articles.next_page_number}}" class="text-teal-500">
+                <i class="fas fa-arrow-right fa-lg"></i>
+            </a>
+        {% endif %}
+    </div>
+    {% endif %}
 {% endblock content %}
