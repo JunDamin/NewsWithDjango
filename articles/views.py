@@ -1,8 +1,11 @@
-from django.shortcuts import render
-from django.views.generic import ListView, DetailView, View
+from django.shortcuts import render, redirect
+from django.urls import reverse
+from django.views.generic import ListView, DetailView, View, FormView
 from django.core.paginator import Paginator
 from . import models, forms
-# Create your views here.
+from .management.commands.add_articles import read_from_csv, set_articles
+import csv
+import io
 
 
 class HomeView(ListView):
@@ -74,3 +77,34 @@ class SearchView(View):
             form = forms.SearchForm()
 
             return render(request, "articles/search.html", {"form": form})
+
+
+class UploadView(FormView):
+    form_class = forms.FileForm
+    template_name = 'articles/upload.html'
+    success_url = "/"
+
+
+    def post(self, request, *args, **kwargs):
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        csv = request.FILES["csv"]
+        print("csv:", csv)
+        if not request.user.is_authenticated:
+            return redirect(reverse("core:home"))
+        if form.is_valid():
+            handle_uploaded_file(csv)
+            return self.form_valid(form)
+        else:
+            print("invalid form")
+            return self.form_invalid(form)
+
+
+def handle_uploaded_file(f):
+    encoded = f.read()
+    try:
+        csv = encoded.decode('utf-8')
+    except UnicodeDecodeError:
+        csv = encoded.decode("cp949")
+    set_articles(io.StringIO(csv))
+        

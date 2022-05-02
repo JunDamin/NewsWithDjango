@@ -27,3 +27,7 @@ class SearchForm(forms.ModelForm):
         super(SearchForm, self).__init__(*args, **kwargs)
         for field in self.fields:
             self.fields[field].required = False
+
+
+class FileForm(forms.Form):
+    csv = forms.FileField(widget=forms.FileInput(attrs={"placeholder": "upload CSV file"}))

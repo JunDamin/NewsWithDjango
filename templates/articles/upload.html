@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+Search
+{% endblock page_title %}
+
+{% block seearch-bar %}
+{% endblock seearch-bar %}
+
+
+{% block content %}
+
+    <div class="container lg:w-5/12 md:w-1/2 xl:w-1/2 mx-auto my-10 flex flex-col items-center border p-6 border-gray-400">
+        <h2 class="text-xl"> Upload CSV File</h2>
+
+        <form method="post" action="{% url "articles:upload" %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% for field in form %}
+                {{field}}
+            {% endfor %}
+            <button class="btn bg-teal-500 mt-5 text-white">Upload</button>
+        </form>
+    </div>
+{% endblock content %}
