@@ -9,7 +9,7 @@ class ArticleAdmin(admin.ModelAdmin):
         (
             "Basic Info",
             {
-                "fields": ("country", "date", "title_kr", "category", "sector",)
+                "fields": ("id", "created", "country", "date", "title_kr", "category", "sector",)
             },
         ),
         (
