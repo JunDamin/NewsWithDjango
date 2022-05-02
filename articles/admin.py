@@ -9,7 +9,7 @@ class ArticleAdmin(admin.ModelAdmin):
         (
             "Basic Info",
             {
-                "fields": ("id", "created", "country", "date", "title_kr", "category", "sector",)
+                "fields": ("country", "date", "title_kr", "category", "sector",)
             },
         ),
         (
@@ -20,7 +20,7 @@ class ArticleAdmin(admin.ModelAdmin):
         ),
     )
 
-    list_display = ("country", "date", "title_kr", "category", "sector", "reference", "link",
+    list_display = ("created", "country", "date", "title_kr", "category", "sector", "reference", "link",
         
     )
 
